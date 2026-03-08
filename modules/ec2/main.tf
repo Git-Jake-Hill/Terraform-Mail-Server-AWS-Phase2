@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "ssm_role_attachment" {
 
 # IAM instance profile to associate the role with the EC2 instance
 resource "aws_iam_instance_profile" "email_server_profile" {
-  name = "test_profile"
+  name = "email_server_ssm_profile"
   role = aws_iam_role.ssm_role.name
 }
 

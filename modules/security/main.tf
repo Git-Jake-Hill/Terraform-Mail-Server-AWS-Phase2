@@ -1,10 +1,10 @@
 resource "aws_security_group" "alb_security_group" {
-  name        = "allow_alb_traffic"
-  description = "Allow all inbound traffic  outbound traffic"
+  name        = "mailpit_alb_sg"
+  description = "Security group for the public ALB"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name = "allow_alb_traffic"
+    Name = "mailpit_alb_sg"
   }
 }
 
@@ -24,12 +24,12 @@ resource "aws_vpc_security_group_egress_rule" "alb_allow_all_ipv4_egress" {
 
 
 resource "aws_security_group" "ec2_security_group" {
-  name        = "allow_ec2_traffic"
-  description = "Allow inbound traffic from ALB security group and all outbound traffic"
+  name        = "mailpit_ec2_sg"
+  description = "Only allow inbound traffic from ALB security group and all outbound traffic"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name = "allow_ec2_traffic"
+    Name = "mailpit_ec2_sg"
   }
 }
 

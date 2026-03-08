@@ -8,7 +8,7 @@ resource "aws_lb" "public_alb" {
   enable_deletion_protection = true
 
   tags = {
-    Name = "main"
+    Name = "public_alb"
   }
 }
 
@@ -28,7 +28,7 @@ resource "aws_lb_target_group" "alb_target_group" {
   }
 
   tags = {
-    Name = "main"
+    Name = "public_alb_target_group"
   }
 
 }
