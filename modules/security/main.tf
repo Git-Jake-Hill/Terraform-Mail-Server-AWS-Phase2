@@ -13,7 +13,7 @@ resource "aws_vpc_security_group_ingress_rule" "alb_allow_all_ipv4_ingress" {
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
-  to_port           = 443
+  to_port           = 80
 }
 
 resource "aws_vpc_security_group_egress_rule" "alb_allow_all_ipv4_egress" {
@@ -37,7 +37,7 @@ resource "aws_security_group" "ec2_security_group" {
 resource "aws_vpc_security_group_ingress_rule" "ec2_allow_alb_ipv4_ingress" {
   referenced_security_group_id = aws_security_group.alb_security_group.id
   security_group_id            = aws_security_group.ec2_security_group.id
-  from_port                    = 80
+  from_port                    = 8025
   ip_protocol                  = "tcp"
   to_port                      = 8025
 }
