@@ -1,4 +1,4 @@
-output "ec2_instance_id" {
-  value = aws_instance.email_server.id
-
+output "asg_launch_template_id" {
+  value = aws_launch_template.asg_template.id
+  description = "Launch template ID for ASG"
 }
