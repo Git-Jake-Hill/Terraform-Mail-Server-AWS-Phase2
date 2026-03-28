@@ -43,9 +43,3 @@ resource "aws_lb_listener" "alb_listener" {
   }
 
 }
-
-resource "aws_lb_target_group_attachment" "aws_lb_target_group" {
-  target_group_arn = aws_lb_target_group.alb_target_group.arn
-  target_id        = var.target_ec2_instance_id
-  port             = var.target_ec2_port
-}

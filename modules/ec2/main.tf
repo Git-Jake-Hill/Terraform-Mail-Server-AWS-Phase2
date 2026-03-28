@@ -15,20 +15,18 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-# EC2 instance
-resource "aws_instance" "email_server" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.instance_type
-  subnet_id              = var.subnet_id
-  iam_instance_profile   = aws_iam_instance_profile.email_server_profile.name
+# EC2 launch template
+resource "aws_launch_template" "asg_template" {
+  name_prefix   = "asg_template"
+  image_id      = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
   vpc_security_group_ids = [var.security_group_id]
-
-  user_data = templatefile("${path.module}/user_data_script.sh", {})
-  depends_on = [ var.nat_gateway_id ]
-
-  tags = {
-    Name = "Ubuntu-Noble-2404-Email-Server"
+  update_default_version = true
+  iam_instance_profile {
+    arn = aws_iam_instance_profile.email_server_profile.arn
   }
+  user_data = filebase64("${path.module}/user_data_script.sh")
+  depends_on = [ var.nat_gateway_id ]
 }
 
 ##############################
